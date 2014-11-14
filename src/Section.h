@@ -35,6 +35,7 @@ namespace snowcrash {
         HeadersSectionType,             /// < Headers
         ForeignSectionType,             /// < Foreign, unexpected section
         ParametersSectionType,          /// < Parameters
+        AttributesSectionType,          /// < Attributes
         ParameterSectionType,           /// < One Parameter definition
         ValuesSectionType,              /// < Value enumeration
         ValueSectionType                /// < One Value
@@ -42,6 +43,9 @@ namespace snowcrash {
 
     /** \return Human readable name for given %SectionType */
     extern std::string SectionName(const SectionType& section);
+
+    /** \return Human readable form for give %SectionType */
+    extern std::string SectionTypeToString(SectionType type);
 }
 
 #endif
