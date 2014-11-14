@@ -18,7 +18,7 @@
 #define PARAMETER_VALUE "`([^`]+)`"
 
 /** Parameter Identifier */
-#define PARAMETER_IDENTIFIER "(([[:alnum:]_.-])*|(%[A-Fa-f0-9]{2})*)+"
+#define PARAMETER_IDENTIFIER "(([\\w.-\\[\\]])*|(%[A-Fa-f0-9]{2})*)+"
 
 /** Lead in and out for comma separated values regex */
 #define CSV_LEADINOUT "[[:blank:]]*,?[[:blank:]]*"
@@ -414,7 +414,7 @@ namespace snowcrash {
 
             std::string paramName = innerSignature.substr(0, firstSpace);
 
-            if (!RegexMatch(paramName, "^" PARAMETER_IDENTIFIER "$")) {
+            if (!RegexMatch(paramName, PARAMETER_IDENTIFIER)) {
                 return false; // Invalid param name
             }
 

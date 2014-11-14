@@ -9,6 +9,10 @@
 #include "snowcrashtest.h"
 #include "ParameterParser.h"
 
+#include <iostream>
+
+#include <cstdlib>
+
 using namespace snowcrash;
 using namespace snowcrashtest;
 
@@ -26,8 +30,14 @@ TEST_CASE("Recognize parameter definition signature", "[parameter]")
     mdp::MarkdownNode markdownAST;
     markdownParser.parse(ParameterFixture, markdownAST);
 
+    markdownAST.printNode();
+
     REQUIRE(!markdownAST.children().empty());
     SectionType sectionType = SectionProcessor<Parameter>::sectionType(markdownAST.children().begin());
+
+    std::cout << "Found Section Type: " << snowcrash::SectionName(sectionType) << std::endl;
+    std::cout << "Should be ParameterSectionType" << std::endl;
+
     REQUIRE(sectionType == ParameterSectionType);
 }
 
