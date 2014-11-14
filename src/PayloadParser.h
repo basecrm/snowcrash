@@ -141,6 +141,12 @@ namespace snowcrash {
                                                          const ParseResultRef<Payload>& out) {
 
             switch (pd.sectionContext()) {
+                case ParametersSectionType:
+                {
+                    ParseResultRef<Parameters> parameters(out.report, out.node.parameters, out.sourceMap.parameters);
+                    return ParametersParser::parse(node, siblings, pd, parameters);
+                }
+
                 case HeadersSectionType:
                 {
                     ParseResultRef<Headers> headers(out.report, out.node.headers, out.sourceMap.headers);
@@ -261,6 +267,13 @@ namespace snowcrash {
         static SectionType nestedSectionType(const MarkdownNodeIterator& node) {
 
             SectionType nestedType = UndefinedSectionType;
+
+            // Check if parameters section
+            nestedType = SectionProcessor<Parameters>::sectionType(node);
+
+            if (nestedType != UndefinedSectionType) {
+                return nestedType;
+            }
 
             // Check if headers section
             nestedType = SectionProcessor<Headers>::sectionType(node);
