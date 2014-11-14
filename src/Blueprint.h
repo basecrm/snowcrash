@@ -177,6 +177,9 @@ namespace snowcrash {
         /** Payload-specific Parameters */
         Parameters parameters;
 
+        /** Payload-specific Attributes */
+        Parameters attributes;
+
         /** Payload-specific Headers */
         Headers headers;
 
@@ -248,6 +251,9 @@ namespace snowcrash {
         /** Action-specific Parameters */
         Parameters parameters;
 
+        /** Action-specific Attributes */
+        Parameters attributes;
+
         /**
          *  \brief Action-specific HTTP headers
          *
@@ -288,6 +294,9 @@ namespace snowcrash {
 
         /** Parameters */
         Parameters parameters;
+
+        /** Attributes */
+        Parameters attributes;
 
         /**
          *  \brief Resource-specific HTTP Headers

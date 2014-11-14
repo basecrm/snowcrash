@@ -348,6 +348,44 @@ SC_API size_t sc_parameter_collection_size(const sc_parameter_collection_t* hand
 
 /*----------------------------------------------------------------------*/
 
+SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_payload(const sc_payload_t* handle)
+{
+    const snowcrash::Payload* p = AS_CTYPE(snowcrash::Payload, handle);
+    if(!p)
+        return NULL;
+
+    return AS_CTYPE(sc_parameter_collection_t, &p->attributes);
+}
+
+SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_resource(const sc_resource_t* handle)
+{
+    const snowcrash::Resource* p = AS_CTYPE(snowcrash::Resource, handle);
+    if(!p)
+        return NULL;
+
+    return AS_CTYPE(sc_parameter_collection_t, &p->attributes);
+}
+
+SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_action(const sc_action_t* handle)
+{
+    const snowcrash::Action* p = AS_CTYPE(snowcrash::Action, handle);
+    if(!p)
+        return NULL;
+
+    return AS_CTYPE(sc_parameter_collection_t, &p->attributes);
+}
+
+SC_API size_t sc_attribute_collection_size(const sc_parameter_collection_t* handle)
+{
+    const snowcrash::Parameters* p = AS_CTYPE(snowcrash::Parameters, handle);
+    if(!p)
+        return 0;
+
+    return p->size();
+}
+
+/*----------------------------------------------------------------------*/
+
 SC_API const sc_parameter_t* sc_parameter_handle(const sc_parameter_collection_t* handle, size_t index)
 {
     const snowcrash::Parameters* p = AS_CTYPE(snowcrash::Parameters, handle);

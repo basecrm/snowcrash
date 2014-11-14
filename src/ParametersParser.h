@@ -20,6 +20,9 @@ namespace snowcrash {
     /** Parameters matching regex */
     const char* const ParametersRegex = "^[[:blank:]]*[Pp]arameters?[[:blank:]]*$";
 
+    /** Attributes matching regex */
+    const char* const AttributesRegex = "^[[:blank:]]*[Aa]ttributes?[[:blank:]]*$";
+
     /** No parameters specified message */
     const char* const NoParametersMessage = "no parameters specified, expected a nested list of parameters, one parameter per list item";
 
@@ -123,6 +126,10 @@ namespace snowcrash {
 
                 if (RegexMatch(subject, ParametersRegex)) {
                     return ParametersSectionType;
+                }
+
+                if (RegexMatch(subject, AttributesRegex)) {
+                    return AttributesSectionType;
                 }
             }
 

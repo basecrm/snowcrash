@@ -254,6 +254,20 @@ extern "C" {
 
     /*----------------------------------------------------------------------*/
 
+    /** \returns Attribute Collection handle from Payload */
+    SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_payload(const sc_payload_t* handle);
+
+    /** \returns Attribute Collection handle from Resource */
+    SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_resource(const sc_resource_t* handle);
+
+    /** \returns Attribute Collection handle from Action */
+    SC_API const sc_parameter_collection_t* sc_attribute_collection_handle_action(const sc_action_t* handle);
+
+    /** \returns Attribute Collection size */
+    SC_API size_t sc_attribute_collection_size(const sc_parameter_collection_t* handle);
+
+    /*----------------------------------------------------------------------*/
+
     /** \returns Parameter handle */
     SC_API const sc_parameter_t* sc_parameter_handle(const sc_parameter_collection_t* handle, size_t index);
 

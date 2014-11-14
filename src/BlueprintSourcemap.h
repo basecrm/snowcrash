@@ -87,6 +87,9 @@ namespace snowcrash {
         /** Payload-specific Parameters */
         SourceMap<Parameters> parameters;
 
+        /** Payload-specific Attributes */
+        SourceMap<Parameters> attributes;
+
         /** Payload-specific Headers */
         SourceMap<Headers> headers;
 
@@ -146,6 +149,9 @@ namespace snowcrash {
         /** Action-specific Parameters */
         SourceMap<Parameters> parameters;
 
+        /** Action-specific Attributes */
+        SourceMap<Parameters> attributes;
+
         /**
          *  \brief Action-specific HTTP headers
          *
@@ -187,6 +193,9 @@ namespace snowcrash {
 
         /** Parameters */
         SourceMap<Parameters> parameters;
+
+        /** Attributes */
+        SourceMap<Parameters> attributes;
 
         /**
          *  \brief Resource-specific HTTP Headers

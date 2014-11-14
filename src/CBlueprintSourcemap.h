@@ -242,6 +242,20 @@ extern "C" {
 
     /*----------------------------------------------------------------------*/
 
+    /** \returns Attribute Collection source map array handle from Payload source map */
+    SC_API const sc_sm_parameter_collection_t* sc_sm_attribute_collection_handle_payload(const sc_sm_payload_t* handle);
+
+    /** \returns Attribute Collection source map array handle from Resource source map */
+    SC_API const sc_sm_parameter_collection_t* sc_sm_attribute_collection_handle_resource(const sc_sm_resource_t* handle);
+
+    /** \returns Attribute Collection source map array handle from Action source map */
+    SC_API const sc_sm_parameter_collection_t* sc_sm_attribute_collection_handle_action(const sc_sm_action_t* handle);
+
+    /** \returns Attribute Collection source map array size */
+    SC_API size_t sc_sm_attribute_collection_size(const sc_sm_parameter_collection_t* handle);
+
+    /*----------------------------------------------------------------------*/
+
     /** \returns Parameter source map handle */
     SC_API const sc_sm_parameter_t* sc_sm_parameter_handle(const sc_sm_parameter_collection_t* handle, size_t index);
 

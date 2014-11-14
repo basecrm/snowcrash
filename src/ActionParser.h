@@ -91,6 +91,12 @@ namespace snowcrash {
                     return ParametersParser::parse(node, siblings, pd, parameters);
                 }
 
+                case AttributesSectionType:
+                {
+                    ParseResultRef<Parameters> parameters(out.report, out.node.attributes, out.sourceMap.attributes);
+                    return ParametersParser::parse(node, siblings, pd, parameters);
+                }
+
                 case RequestSectionType:
                 case RequestBodySectionType:
                 {
