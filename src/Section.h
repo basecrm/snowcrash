@@ -38,7 +38,10 @@ namespace snowcrash {
         AttributesSectionType,          /// < Attributes
         ParameterSectionType,           /// < One Parameter definition
         ValuesSectionType,              /// < Value enumeration
-        ValueSectionType                /// < One Value
+        ValueSectionType,               /// < One Value
+        DataStructuresSectionType,      /// < Data Structures
+        DataStructureSectionType,       /// < Data Structure
+        SampleSectionType               /// < Data Structure Sample Payload              
     };
 
     /** \return Human readable name for given %SectionType */

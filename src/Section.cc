@@ -36,6 +36,11 @@ std::string snowcrash::SectionName(const SectionType& section) {
         case HeadersSectionType:
             return "headers";
 
+        case DataStructuresSectionType:
+        case DataStructureSectionType:
+        case SampleSectionType:
+            return "data-structure";
+
         default:
             return "section";
     }
@@ -69,6 +74,9 @@ std::string SectionTypeToString(SectionType type) {
         ENUM2STRING(ParameterSectionType)     
         ENUM2STRING(ValuesSectionType)        
         ENUM2STRING(ValueSectionType)
+        ENUM2STRING(DataStructuresSectionType)
+        ENUM2STRING(DataStructureSectionType)
+        ENUM2STRING(SampleSectionType)        
     }
 
     return "<UNKNOWN>";
