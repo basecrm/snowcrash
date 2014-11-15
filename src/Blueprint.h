@@ -209,11 +209,20 @@ namespace snowcrash {
      */
     typedef Payload Response;
 
+    /** \brief Sample
+     * 
+     * A sample payload used in a data structure section.
+     */
+    typedef Payload Sample;
+
     /** Collection of Requests */
     typedef Collection<Request>::type Requests;
 
     /** Collection of Responses */
     typedef Collection<Response>::type Responses;
+
+    /** Collection of Samples */
+    typedef Collection<Sample>::type Samples;
 
     /**
      *  An HTTP transaction example.
@@ -340,6 +349,38 @@ namespace snowcrash {
     typedef Collection<ResourceGroup>::type ResourceGroups;
 
     /**
+     *  API Data Structure
+     */
+    struct DataStructure {
+
+        /** A Data Structure Name */
+        Name name;
+
+        /** A Data Structure description */
+        Description description;
+
+        /** Members */
+        Parameters members;
+
+        /** Sample */
+        Sample sample;
+    };
+
+    /** Collection of Data Structures */
+    typedef Collection<DataStructure>::type DataStructureCollection;
+
+    /**
+     *  Group of API Data Structures
+     */
+    struct DataStructures {
+        /** Data Structures description */
+        Description description;
+
+        /** Data Structures */
+        DataStructureCollection dataStructures;
+    };
+
+    /**
      *  \brief API Blueprint AST
      *
      *  This is top-level (or root if you prefer) of API Blueprint abstract syntax tree.
@@ -358,6 +399,9 @@ namespace snowcrash {
 
         /** The set of API Resource Groups */
         ResourceGroups resourceGroups;
+
+        /** The API Data Structures */
+        DataStructures dataStructures;
     };
 }
 

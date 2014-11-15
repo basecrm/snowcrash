@@ -108,6 +108,9 @@ namespace snowcrash {
 
     /** Source Map of Collection of Responses */
     // 'Response' type is same as 'Request'
+    
+    /** Source Map of Collection of Samples */
+    // 'Sample' type is same as 'Request'
 
     /**
      *  Source Map Structure for an HTTP transaction example.
@@ -238,6 +241,41 @@ namespace snowcrash {
     SOURCE_MAP_COLLECTION(ResourceGroup, ResourceGroups)
 
     /**
+     *  Source Map structure for API Data Structure
+     */
+    template<>
+    struct SourceMap<DataStructure> : public SourceMapBase {
+
+        /** Source Map of a Data Structure Name */
+        SourceMap<Name> name;
+
+        /** Source Map of a Data Structure Description */
+        SourceMap<Description> description;
+
+        /** Members */ 
+        SourceMap<Parameters> members;
+
+        /** Sample */
+        SourceMap<Sample> sample;
+    };
+
+    /** Source Map of Collection of Data Structures */
+    SOURCE_MAP_COLLECTION(DataStructure, DataStructureCollection)
+
+    /** 
+     * Source Map for group of Data Structure
+     */
+    template<>
+    struct SourceMap<DataStructures> : public SourceMapBase {
+
+        /** Source Map of a Data Structures Description */
+        SourceMap<Description> description;
+
+        /** Data Structures */
+        SourceMap<DataStructureCollection> dataStructures;
+    };
+
+    /**
      *  \brief API Blueprint Sourcemap AST
      *
      *  This is top-level (or root if you prefer) of API Blueprint Sourcemap abstract syntax tree.
@@ -257,6 +295,9 @@ namespace snowcrash {
 
         /** The set of API Resource Groups */
         SourceMap<ResourceGroups> resourceGroups;
+
+        /** Source Map of Data Structures */
+        SourceMap<DataStructures> dataStructures;
     };
 }
 
