@@ -95,7 +95,9 @@ namespace snowcrash {
     enum ParameterUse {
         UndefinedParameterUse,
         OptionalParameterUse,
-        RequiredParameterUse
+        RequiredParameterUse,
+        ReadOnlyParameterUse,
+        WriteOnlyParameterUse
     };
 
     /** Parameter */

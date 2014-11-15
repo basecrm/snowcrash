@@ -31,11 +31,17 @@ namespace snowcrash {
     /** Parameter Optional matching regex */
     const char* const ParameterOptionalRegex = "^[[:blank:]]*[Oo]ptional[[:blank:]]*$";
 
+    /** Parameter Read-Only matching regex */
+    const char* const ParameterReadOnlyRegex = "^[[:blank:]]*[Rr]eadonly[[:blank:]]*$";
+
+    /** Parameter Write-Only matching regex */
+    const char* const ParameterWriteOnlyRegex = "^[[:blank:]]*[Ww]riteonly[[:blank:]]*$";
+
     /** Additonal Parameter Traits Example matching regex */
     const char* const AdditionalTraitsExampleRegex = CSV_LEADINOUT "`([^`]*)`" CSV_LEADINOUT;
 
     /** Additonal Parameter Traits Use matching regex */
-    const char* const AdditionalTraitsUseRegex = CSV_LEADINOUT "([Oo]ptional|[Rr]equired)" CSV_LEADINOUT;
+    const char* const AdditionalTraitsUseRegex = CSV_LEADINOUT "([Oo]ptional|[Rr]equired|[Rr]eadonly|[Ww]riteonly)" CSV_LEADINOUT;
 
     /** Additonal Parameter Traits Type matching regex */
     const char* const AdditionalTraitsTypeRegex = CSV_LEADINOUT "([^,]*)" CSV_LEADINOUT;
@@ -240,6 +246,8 @@ namespace snowcrash {
 
                 // Check possible required vs default clash
                 if (out.node.use != OptionalParameterUse &&
+                    out.node.use != ReadOnlyParameterUse &&
+                    out.node.use != WriteOnlyParameterUse &&
                     !out.node.defaultValue.empty()) {
 
                     // WARN: Required vs default clash
@@ -259,6 +267,22 @@ namespace snowcrash {
                                          BusinessError,
                                          sourceMap);
             }
+        }
+
+        static ParameterUse parseParameterUse(const std::string& target) {
+            if (RegexMatch(target, ParameterOptionalRegex)) {
+                return OptionalParameterUse;
+            }
+
+            if (RegexMatch(target, ParameterReadOnlyRegex)) {
+                return ReadOnlyParameterUse;
+            }
+
+            if (RegexMatch(target, ParameterWriteOnlyRegex)) {
+                return WriteOnlyParameterUse;
+            } 
+
+            return RequiredParameterUse;
         }
 
         static void parseAdditionalTraits(const mdp::MarkdownNodeIterator& node,
@@ -292,7 +316,7 @@ namespace snowcrash {
             if (RegexCapture(traits, AdditionalTraitsUseRegex, captureGroups) &&
                 captureGroups.size() > 1) {
 
-                out.node.use = RegexMatch(captureGroups[1], ParameterOptionalRegex) ? OptionalParameterUse : RequiredParameterUse;
+                out.node.use = parseParameterUse(captureGroups[1]);
                 std::string::size_type pos = traits.find(captureGroups[0]);
 
                 if (pos != std::string::npos) {
@@ -329,7 +353,7 @@ namespace snowcrash {
                 // WARN: Additional parameters traits warning
                 std::stringstream ss;
                 ss << "unable to parse additional parameter traits";
-                ss << ", expected '([required | optional], [<type>], [`<example value>`])'";
+                ss << ", expected '([required | optional | readonly | writeonly], [<type>], [`<example value>`])'";
                 ss << ", e.g. '(optional, string, `Hello World`)'";
 
                 mdp::CharactersRangeSet sourceMap = mdp::BytesRangeSetToCharactersRangeSet(node->sourceMap, pd.sourceData);

@@ -90,6 +90,62 @@ TEST_CASE("Parse canonical parameter definition", "[parameter]")
     REQUIRE(parameter.sourceMap.values.collection[2].sourceMap[0].length == 9);
 }
 
+TEST_CASE("Parse canonical parameter definition with readonly use", "[parameter]")
+{
+    mdp::ByteBuffer source = \
+    "+ id = `1234` (readonly, number, `0000`)\n\n"\
+    "    Lorem ipsum\n\n"\
+    "    + Values\n"\
+    "        + `1234`\n"\
+    "        + `0000`\n"\
+    "        + `beef`\n";
+
+    ParseResult<Parameter> parameter;
+    SectionParserHelper<Parameter, ParameterParser>::parse(source, ParameterSectionType, parameter, ExportSourcemapOption);
+
+    REQUIRE(parameter.report.error.code == Error::OK);
+    CHECK(parameter.report.warnings.empty());
+
+    REQUIRE(parameter.node.name == "id");
+    REQUIRE(parameter.node.description == "Lorem ipsum\n");
+    REQUIRE(parameter.node.type == "number");
+    REQUIRE(parameter.node.use == ReadOnlyParameterUse);
+    REQUIRE(parameter.node.defaultValue == "1234");
+    REQUIRE(parameter.node.exampleValue == "0000");
+    REQUIRE(parameter.node.values.size() == 3);
+    REQUIRE(parameter.node.values[0] == "1234");
+    REQUIRE(parameter.node.values[1] == "0000");
+    REQUIRE(parameter.node.values[2] == "beef");
+}
+
+TEST_CASE("Parse canonical parameter definition with writeonly use", "[parameter]")
+{
+    mdp::ByteBuffer source = \
+    "+ id = `1234` (writeonly, number, `0000`)\n\n"\
+    "    Lorem ipsum\n\n"\
+    "    + Values\n"\
+    "        + `1234`\n"\
+    "        + `0000`\n"\
+    "        + `beef`\n";
+
+    ParseResult<Parameter> parameter;
+    SectionParserHelper<Parameter, ParameterParser>::parse(source, ParameterSectionType, parameter, ExportSourcemapOption);
+
+    REQUIRE(parameter.report.error.code == Error::OK);
+    CHECK(parameter.report.warnings.empty());
+
+    REQUIRE(parameter.node.name == "id");
+    REQUIRE(parameter.node.description == "Lorem ipsum\n");
+    REQUIRE(parameter.node.type == "number");
+    REQUIRE(parameter.node.use == WriteOnlyParameterUse);
+    REQUIRE(parameter.node.defaultValue == "1234");
+    REQUIRE(parameter.node.exampleValue == "0000");
+    REQUIRE(parameter.node.values.size() == 3);
+    REQUIRE(parameter.node.values[0] == "1234");
+    REQUIRE(parameter.node.values[1] == "0000");
+    REQUIRE(parameter.node.values[2] == "beef");
+}
+
 TEST_CASE("Warn when re-setting the values attribute", "[parameter]")
 {
     mdp::ByteBuffer source = \

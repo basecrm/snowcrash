@@ -31,7 +31,9 @@ extern "C" {
     typedef enum sc_parameter_use {
         SC_UNDEFINED_PARAMETER_USE,
         SC_OPTIONAL_PARAMETER_USE,
-        SC_REQUIRED_PARAMETER_USE
+        SC_REQUIRED_PARAMETER_USE,
+        SC_READ_ONLY_PARAMETER_USE,
+        SC_WRITE_ONLY_PARAMETER_USE
     } sc_parameter_use;
 
     typedef enum sc_reference_type_t {
