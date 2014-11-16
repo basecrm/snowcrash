@@ -25,6 +25,10 @@ std::string snowcrash::SectionName(const SectionType& section) {
         case ResponseBodySectionType:
             return "response";
 
+        case SampleSectionType:
+        case SampleBodySectionType:
+            return "sample";
+
         case BodySectionType:
         case DanglingBodySectionType:
             return "message-body";
@@ -38,7 +42,6 @@ std::string snowcrash::SectionName(const SectionType& section) {
 
         case DataStructuresSectionType:
         case DataStructureSectionType:
-        case SampleSectionType:
             return "data-structure";
 
         default:
@@ -71,12 +74,14 @@ std::string SectionTypeToString(SectionType type) {
         ENUM2STRING(ForeignSectionType)       
         ENUM2STRING(ParametersSectionType)
         ENUM2STRING(AttributesSectionType)
+        ENUM2STRING(MembersSectionType)
         ENUM2STRING(ParameterSectionType)     
         ENUM2STRING(ValuesSectionType)        
         ENUM2STRING(ValueSectionType)
         ENUM2STRING(DataStructuresSectionType)
         ENUM2STRING(DataStructureSectionType)
-        ENUM2STRING(SampleSectionType)        
+        ENUM2STRING(SampleSectionType)    
+        ENUM2STRING(SampleBodySectionType)    
     }
 
     return "<UNKNOWN>";

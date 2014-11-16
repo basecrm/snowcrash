@@ -36,12 +36,14 @@ namespace snowcrash {
         ForeignSectionType,             /// < Foreign, unexpected section
         ParametersSectionType,          /// < Parameters
         AttributesSectionType,          /// < Attributes
+        MembersSectionType,             /// < Members
         ParameterSectionType,           /// < One Parameter definition
         ValuesSectionType,              /// < Value enumeration
         ValueSectionType,               /// < One Value
         DataStructuresSectionType,      /// < Data Structures
         DataStructureSectionType,       /// < Data Structure
-        SampleSectionType               /// < Data Structure Sample Payload              
+        SampleSectionType,              /// < Data Structure Sample Payload
+        SampleBodySectionType           /// < Data Structure Sample Payload & Body combined              
     };
 
     /** \return Human readable name for given %SectionType */

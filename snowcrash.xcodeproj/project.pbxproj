@@ -10,6 +10,10 @@
 		4070F30419E4C30A004892C8 /* BlueprintSourcemap.h in Headers */ = {isa = PBXBuildFile; fileRef = 4070F30119E4C30A004892C8 /* BlueprintSourcemap.h */; };
 		4070F30519E4C30A004892C8 /* CBlueprintSourcemap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4070F30219E4C30A004892C8 /* CBlueprintSourcemap.cc */; };
 		4070F30619E4C30A004892C8 /* CBlueprintSourcemap.h in Headers */ = {isa = PBXBuildFile; fileRef = 4070F30319E4C30A004892C8 /* CBlueprintSourcemap.h */; };
+		B7FA1D7A1A19566400FF06A1 /* DataStructureParser.h in Headers */ = {isa = PBXBuildFile; fileRef = B7FA1D781A19566400FF06A1 /* DataStructureParser.h */; };
+		B7FA1D7B1A19566400FF06A1 /* DataStructuresParser.h in Headers */ = {isa = PBXBuildFile; fileRef = B7FA1D791A19566400FF06A1 /* DataStructuresParser.h */; };
+		B7FA1D7E1A19568300FF06A1 /* test-DataStructureParser.cc in Sources */ = {isa = PBXBuildFile; fileRef = B7FA1D7C1A19568300FF06A1 /* test-DataStructureParser.cc */; };
+		B7FA1D7F1A19568300FF06A1 /* test-DataStructuresParser.cc in Sources */ = {isa = PBXBuildFile; fileRef = B7FA1D7D1A19568300FF06A1 /* test-DataStructuresParser.cc */; };
 		BB05B9D81804493500243E1B /* perf-snowcrash.cc in Sources */ = {isa = PBXBuildFile; fileRef = BB05B9D71804493500243E1B /* perf-snowcrash.cc */; };
 		BB05B9D918044C8200243E1B /* libsnowcrash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFF4898170B34E6001E5FB2 /* libsnowcrash.a */; };
 		BB088F78192D7901003AA95C /* SectionParserData.h in Headers */ = {isa = PBXBuildFile; fileRef = BB088F77192D7901003AA95C /* SectionParserData.h */; };
@@ -76,6 +80,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B7FA1D741A15619E00FF06A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7FA1D6F1A15619E00FF06A1 /* markdownparser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BBAE529B18FEBFAE00D98223;
+			remoteInfo = libmarkdownparser;
+		};
+		B7FA1D761A15619E00FF06A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7FA1D6F1A15619E00FF06A1 /* markdownparser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BB955A4D19011E85006684B8;
+			remoteInfo = "test-libmarkdownparser";
+		};
 		BB4D8E55172D15AA0024EB04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BBFF4890170B34E6001E5FB2 /* Project object */;
@@ -133,6 +151,11 @@
 		4070F30119E4C30A004892C8 /* BlueprintSourcemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueprintSourcemap.h; path = src/BlueprintSourcemap.h; sourceTree = "<group>"; };
 		4070F30219E4C30A004892C8 /* CBlueprintSourcemap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBlueprintSourcemap.cc; path = src/CBlueprintSourcemap.cc; sourceTree = "<group>"; };
 		4070F30319E4C30A004892C8 /* CBlueprintSourcemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBlueprintSourcemap.h; path = src/CBlueprintSourcemap.h; sourceTree = "<group>"; };
+		B7FA1D6F1A15619E00FF06A1 /* markdownparser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = markdownparser.xcodeproj; path = "ext/markdown-parser/markdownparser.xcodeproj"; sourceTree = "<group>"; };
+		B7FA1D781A19566400FF06A1 /* DataStructureParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataStructureParser.h; path = src/DataStructureParser.h; sourceTree = "<group>"; };
+		B7FA1D791A19566400FF06A1 /* DataStructuresParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataStructuresParser.h; path = src/DataStructuresParser.h; sourceTree = "<group>"; };
+		B7FA1D7C1A19568300FF06A1 /* test-DataStructureParser.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "test-DataStructureParser.cc"; path = "test/test-DataStructureParser.cc"; sourceTree = "<group>"; };
+		B7FA1D7D1A19568300FF06A1 /* test-DataStructuresParser.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "test-DataStructuresParser.cc"; path = "test/test-DataStructuresParser.cc"; sourceTree = "<group>"; };
 		BB03DC6417D3717B00C51E52 /* ParametersParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ParametersParser.h; path = src/ParametersParser.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BB03DC6517D3718D00C51E52 /* test-ParametersParser.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "test-ParametersParser.cc"; path = "test/test-ParametersParser.cc"; sourceTree = "<group>"; };
 		BB05B9CE180448E300243E1B /* perf-libsnowcrash */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "perf-libsnowcrash"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,6 +270,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B7FA1D701A15619E00FF06A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B7FA1D751A15619E00FF06A1 /* libmarkdownparser.a */,
+				B7FA1D771A15619E00FF06A1 /* test-libmarkdownparser */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BB05B9CF180448E300243E1B /* perf-libsnowcrash */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +307,7 @@
 		BBFF488F170B34E6001E5FB2 = {
 			isa = PBXGroup;
 			children = (
+				B7FA1D6F1A15619E00FF06A1 /* markdownparser.xcodeproj */,
 				BB8C3E701923F09900EF36FA /* libmarkdownparser.a */,
 				BB810F781779AB5400B89CD8 /* cmdline */,
 				BBFF48CB170B3ECB001E5FB2 /* libsnowcrash */,
@@ -305,6 +338,8 @@
 				BBFF48D7170C57F1001E5FB2 /* test-Blueprint.cc */,
 				BBA01FF817292F9C0050B603 /* test-BlueprintParser.cc */,
 				BBFC8421196C0C27001A236A /* test-csnowcrash.cc */,
+				B7FA1D7C1A19568300FF06A1 /* test-DataStructureParser.cc */,
+				B7FA1D7D1A19568300FF06A1 /* test-DataStructuresParser.cc */,
 				BBD73565192ED45D009FE09E /* test-HeadersParser.cc */,
 				BB45781D182326EE00D0293A /* test-Indentation.cc */,
 				BBCC856019542DB300B99E90 /* test-ParameterParser.cc */,
@@ -342,6 +377,8 @@
 				BBFC8412196C0C0F001A236A /* csnowcrash.h */,
 				BBFC8413196C0C0F001A236A /* CSourceAnnotation.cc */,
 				BBFC8414196C0C0F001A236A /* CSourceAnnotation.h */,
+				B7FA1D781A19566400FF06A1 /* DataStructureParser.h */,
+				B7FA1D791A19566400FF06A1 /* DataStructuresParser.h */,
 				BBD73563192ED417009FE09E /* HeadersParser.h */,
 				BB92D890178EF7C10098A63C /* HTTP.cc */,
 				BB92D88F178EF4160098A63C /* HTTP.h */,
@@ -390,6 +427,7 @@
 				BBFCD83A19DAEE240073813C /* cmdline.h in Headers */,
 				BBFF48D6170C4F30001E5FB2 /* Blueprint.h in Headers */,
 				BBD73564192ED417009FE09E /* HeadersParser.h in Headers */,
+				B7FA1D7B1A19566400FF06A1 /* DataStructuresParser.h in Headers */,
 				BBCC855F19542DA100B99E90 /* ValuesParser.h in Headers */,
 				BBA91DC2171D402600649B05 /* BlueprintParser.h in Headers */,
 				BBCEF19218FBF7B000A0FA24 /* Version.h in Headers */,
@@ -401,6 +439,7 @@
 				BB8C3E631923D6FE00EF36FA /* SectionParser.h in Headers */,
 				BBD5F9CE17353CE00049BBEE /* ResourceParser.h in Headers */,
 				4070F30419E4C30A004892C8 /* BlueprintSourcemap.h in Headers */,
+				B7FA1D7A1A19566400FF06A1 /* DataStructureParser.h in Headers */,
 				BBE57061173927870086CE22 /* PayloadParser.h in Headers */,
 				BBFC841D196C0C0F001A236A /* CSourceAnnotation.h in Headers */,
 				BB8C3E651923D83C00EF36FA /* Section.h in Headers */,
@@ -507,6 +546,12 @@
 			mainGroup = BBFF488F170B34E6001E5FB2;
 			productRefGroup = BBFF4899170B34E6001E5FB2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B7FA1D701A15619E00FF06A1 /* Products */;
+					ProjectRef = B7FA1D6F1A15619E00FF06A1 /* markdownparser.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BBFF4897170B34E6001E5FB2 /* libsnowcrash */,
@@ -516,6 +561,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B7FA1D751A15619E00FF06A1 /* libmarkdownparser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libmarkdownparser.a;
+			remoteRef = B7FA1D741A15619E00FF06A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B7FA1D771A15619E00FF06A1 /* test-libmarkdownparser */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "test-libmarkdownparser";
+			remoteRef = B7FA1D761A15619E00FF06A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB05B9CA180448E300243E1B /* Sources */ = {
@@ -558,6 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7FA1D7F1A19568300FF06A1 /* test-DataStructuresParser.cc in Sources */,
 				BBFC8425196C1AD4001A236A /* test-ActionParser.cc in Sources */,
 				BBCC856319542DB300B99E90 /* test-ValuesParser.cc in Sources */,
 				BBB1278C199970A80041E9AE /* test-SymbolIdentifier.cc in Sources */,
@@ -576,6 +639,7 @@
 				BBB1278D199970AB0041E9AE /* test-SymbolTable.cc in Sources */,
 				BBFC8424196C0C27001A236A /* test-UriTemplateParser.cc in Sources */,
 				BBFC842A196C1B2B001A236A /* test-snowcrash.cc in Sources */,
+				B7FA1D7E1A19568300FF06A1 /* test-DataStructureParser.cc in Sources */,
 				BBB1278A1999702E0041E9AE /* test-csnowcrash.cc in Sources */,
 				BBD73566192ED45D009FE09E /* test-HeadersParser.cc in Sources */,
 			);

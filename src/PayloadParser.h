@@ -30,6 +30,7 @@ namespace snowcrash {
         RequestPayloadSignature,    /// < Request payload.
         ResponsePayloadSignature,   /// < Response payload.
         ModelPayloadSignature,      /// < Resource Model payload.
+        SamplePayloadSignature,     /// < Data Structure Sample payload.
         UndefinedPayloadSignature = -1
     };
 
@@ -41,6 +42,9 @@ namespace snowcrash {
 
     /** Model matching regex */
     const char* const  ModelRegex = "^[[:blank:]]*(" SYMBOL_IDENTIFIER "[[:blank:]]+)?[Mm]odel" MEDIA_TYPE "?[[:blank:]]*$";
+
+    /** Sample matching regex */
+    const char* const SampleRegex = "^[[:blank:]]*[Ss]ample" SYMBOL_IDENTIFIER "?" MEDIA_TYPE "?[[:blank:]]*";
 
     /**
      * Payload Section Processor
@@ -347,6 +351,9 @@ namespace snowcrash {
             if (RegexMatch(signature, ModelRegex))
                 return ModelPayloadSignature;
 
+            if (RegexMatch(signature, SampleRegex))
+                return SamplePayloadSignature;
+
             return NoPayloadSignature;
         }
 
@@ -364,6 +371,9 @@ namespace snowcrash {
                 case ModelPayloadSignature:
                     return (nestedType != UndefinedSectionType) ? ModelSectionType : ModelBodySectionType;
 
+                 case SamplePayloadSignature:
+                    return (nestedType != UndefinedSectionType) ? SampleSectionType : SampleBodySectionType;
+
                 default:
                     break;
             }
@@ -376,7 +386,8 @@ namespace snowcrash {
 
             return (sectionType == RequestBodySectionType ||
                     sectionType == ResponseBodySectionType ||
-                    sectionType == ModelBodySectionType);
+                    sectionType == ModelBodySectionType ||
+                    sectionType == SampleBodySectionType);
         }
 
         /** Given the signature, parse it */
@@ -403,6 +414,11 @@ namespace snowcrash {
                 case ModelSectionType:
                 case ModelBodySectionType:
                     regex = ModelRegex;
+                    break;
+
+                case SampleSectionType:
+                case SampleBodySectionType:
+                    regex = SampleRegex;
                     break;
 
                 default:
@@ -440,6 +456,11 @@ namespace snowcrash {
                         case ModelSectionType:
                         case ModelBodySectionType:
                             ss << "'model [(<media type>)]'";
+                            break;
+
+                        case SampleSectionType:
+                        case SampleBodySectionType:
+                            ss << "'sample [<identifier>] [(<media type>)]'";
                             break;
 
                         default:

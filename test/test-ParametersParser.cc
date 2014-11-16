@@ -34,6 +34,36 @@ TEST_CASE("Recognize Parameters section block", "[parameters]")
     REQUIRE(sectionType == ParametersSectionType);
 }
 
+TEST_CASE("Recognize Attributes section block", "[parameters]")
+{
+    mdp::ByteBuffer source = \
+    "+ Attributes\n"\
+    "    + id\n";
+    
+    mdp::MarkdownParser markdownParser;
+    mdp::MarkdownNode markdownAST;
+    markdownParser.parse(source, markdownAST);
+    
+    REQUIRE(!markdownAST.children().empty());
+    SectionType sectionType = SectionProcessor<Parameters>::sectionType(markdownAST.children().begin());
+    REQUIRE(sectionType == AttributesSectionType);
+}
+
+TEST_CASE("Recognize Members section block", "[parameters]")
+{
+    mdp::ByteBuffer source = \
+    "+ Members\n"\
+    "    + id\n";
+    
+    mdp::MarkdownParser markdownParser;
+    mdp::MarkdownNode markdownAST;
+    markdownParser.parse(source, markdownAST);
+    
+    REQUIRE(!markdownAST.children().empty());
+    SectionType sectionType = SectionProcessor<Parameters>::sectionType(markdownAST.children().begin());
+    REQUIRE(sectionType == MembersSectionType);
+}
+
 TEST_CASE("Parse canonical parameters", "[parameters]")
 {
     ParseResult<Parameters> parameters;
