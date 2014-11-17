@@ -2,8 +2,8 @@
 //  DataStructureParser.h
 //  snowcrash
 //
-//  Created by Zdenek Nemec on 5/4/13.
-//  Copyright (c) 2013 Apiary Inc. All rights reserved.
+//  Created by Boguslaw Mista on 16/11/14.
+//  Copyright (c) 2014 Base. All rights reserved.
 //
 
 #ifndef SNOWCRASH_DATASTRUCTURE_H

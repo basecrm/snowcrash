@@ -10,7 +10,9 @@
 #define SNOWCRASH_BLUEPRINTPARSER_H
 
 #include "ResourceParser.h"
-#include "ResourceGroupParser.h"
+#include "ResourceGroupParser.h"
+#include "DataStructuresParser.h"
+#include "DataStructureParser.h"
 #include "SectionParser.h"
 #include "RegexMatch.h"
 #include "CodeBlockUtility.h"
