@@ -31,14 +31,15 @@ namespace snowcrash {
                                                      SectionParserData& pd,
                                                      SectionLayout& layout,
                                                      const ParseResultRef<DataStructures>& out) {
+            if (!isRootHeader(node)) {
+                MarkdownNodeIterator cur = node;
+                SectionType nestedType = nestedSectionType(cur);
 
-            MarkdownNodeIterator cur = node;
-            SectionType nestedType = nestedSectionType(cur);
-
-            // DataStructure only, parse as exclusive nested sections
-            if (nestedType != UndefinedSectionType) {
-                layout = ExclusiveNestedSectionLayout;
-                return cur;
+                // DataStructure only, parse as exclusive nested sections
+                if (nestedType != UndefinedSectionType) {
+                    layout = ExclusiveNestedSectionLayout;
+                    return cur;
+                }
             }
 
             return ++MarkdownNodeIterator(node);
@@ -125,12 +126,20 @@ namespace snowcrash {
             return std::find_if(collection.begin(),
                                 collection.end(),
                                 std::bind2nd(MatchName<DataStructure>(), ds));
-            
+        }
+
+        static bool isRootHeader(const MarkdownNodeIterator& node) {
+            const MarkdownNode& cur = *node;
+
+            return (cur.type == mdp::HeaderMarkdownNodeType &&
+                    cur.data == 1 &&
+                    cur.hasParent() &&
+                    cur.parent().type == mdp::RootMarkdownNodeType);
         }
     };
 
-    /** ResourceGroup Section Parser */
-    typedef SectionParser<ResourceGroup, HeaderSectionAdapter> ResourceGroupParser;
+    /** Data Structures Section Parser */
+    typedef SectionParser<DataStructures, HeaderSectionAdapter> DataStructuresParser;
 }
 
 #endif
