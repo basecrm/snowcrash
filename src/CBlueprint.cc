@@ -60,6 +60,112 @@ SC_API size_t sc_metadata_collection_size(const sc_metadata_collection_t* metada
 
 /*----------------------------------------------------------------------*/
 
+/** \returns DataStructures handle */
+SC_API const sc_data_structures_t* sc_data_structures_handle(const sc_blueprint_t* blueprint)
+{
+    const snowcrash::Blueprint* p = AS_CTYPE(snowcrash::Blueprint, blueprint);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_data_structures_t, &p->dataStructures);
+}
+
+/*----------------------------------------------------------------------*/
+
+/** \returns DataStructures description */
+SC_API const char* sc_data_structures_description(const sc_data_structures_t* ds)
+{
+    const snowcrash::DataStructures* p = AS_CTYPE(snowcrash::DataStructures, ds);
+    if (!p)
+        return "";
+
+    return p->description.c_str();
+}
+
+/** \returns DataStructure array handle */
+SC_API const sc_data_structure_collection_t* sc_data_structure_collection_handle(const sc_data_structures_t* ds)
+{
+    const snowcrash::DataStructures* p = AS_CTYPE(snowcrash::DataStructures, ds);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_data_structure_collection_t, &p->dataStructures);
+}
+
+/** \returns size of DataStructure array */
+SC_API size_t sc_data_structure_collection_size(const sc_data_structure_collection_t* dsc)
+{
+    const snowcrash::DataStructureCollection* p = AS_CTYPE(snowcrash::DataStructureCollection, dsc);
+    if (!p)
+        return 0;
+
+    return p->size();
+}
+
+/*----------------------------------------------------------------------*/
+
+/** \returns DataStructure handle */
+SC_API const sc_data_structure_t* sc_data_structure_handle(const sc_data_structure_collection_t* dsc, size_t index)
+{
+    const snowcrash::DataStructureCollection* p = AS_CTYPE(snowcrash::DataStructureCollection, dsc);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_data_structure_t, &p->at(index));
+}
+
+/** \returns DataStructure name */
+SC_API const char* sc_data_structure_name(const sc_data_structure_t* handle)
+{
+    const snowcrash::DataStructure* p = AS_CTYPE(snowcrash::DataStructure, handle);
+    if (!p)
+        return "";
+
+    return p->name.c_str();
+}
+
+/** \returns DataStructure description */
+SC_API const char* sc_data_structure_description(const sc_data_structure_t* handle)
+{
+    const snowcrash::DataStructure* p = AS_CTYPE(snowcrash::DataStructure, handle);
+    if (!p)
+        return "";
+
+    return p->description.c_str();
+}
+
+/** \returns DataStructure Members Collection handle */
+SC_API const sc_parameter_collection_t* sc_members_collection_handle(const sc_data_structure_t* handle)
+{
+    const snowcrash::DataStructure* p = AS_CTYPE(snowcrash::DataStructure, handle);
+    if(!p)
+        return NULL;
+
+    return AS_CTYPE(sc_parameter_collection_t, &p->members);
+}
+
+/** \returns Members Collection size */
+SC_API size_t sc_members_collection_size(const sc_parameter_collection_t* handle)
+{
+    const snowcrash::Parameters* p = AS_CTYPE(snowcrash::Parameters, handle);
+    if(!p)
+        return 0;
+
+    return p->size();
+}
+
+/** \returns Payload handle from DataStructure */
+SC_API const sc_payload_t* sc_sample_handle(const sc_data_structure_t* handle)
+{
+    const snowcrash::DataStructure* p = AS_CTYPE(snowcrash::DataStructure, handle);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_payload_t, &p->sample);
+}
+
+/*----------------------------------------------------------------------*/
+
 SC_API const sc_metadata_t* sc_metadata_handle(const sc_metadata_collection_t* metadata_col, size_t index)
 {
     const snowcrash::MetadataCollection* p = AS_CTYPE(snowcrash::MetadataCollection, metadata_col);

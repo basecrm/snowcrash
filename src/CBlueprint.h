@@ -52,6 +52,18 @@ extern "C" {
     struct sc_metadata_s;
     typedef struct sc_metadata_s sc_metadata_t;
 
+    /** Class DataStructures wrapper */
+    struct sc_data_structures_s;
+    typedef sc_data_structures_s sc_data_structures_t;
+
+    /** Array of DataStructure Collection wrapper */
+    struct sc_data_structure_collection_s;
+    typedef sc_data_structure_collection_s sc_data_structure_collection_t;
+
+    /** Class DataStructure wrapper */
+    struct sc_data_structure_s;
+    typedef sc_data_structure_s sc_data_structure_t;
+
     /** Array Resource Group Collection wrapper */
     struct sc_resource_group_collection_s;
     typedef struct sc_resource_group_collection_s sc_resource_group_collection_t;
@@ -156,6 +168,42 @@ extern "C" {
 
     /** \returns Metadata value */
     SC_API const char* sc_metadata_value(const sc_metadata_t* metadata);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructures handle */
+    SC_API const sc_data_structures_t* sc_data_structures_handle(const sc_blueprint_t* blueprint);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructures description */
+    SC_API const char* sc_data_structures_description(const sc_data_structures_t* ds);
+
+    /** \returns DataStructure array handle */
+    SC_API const sc_data_structure_collection_t* sc_data_structure_collection_handle(const sc_data_structures_t* ds);
+
+    /** \returns size of DataStructure array */
+    SC_API size_t sc_data_structure_collection_size(const sc_data_structure_collection_t* dsc);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructure handle */
+    SC_API const sc_data_structure_t* sc_data_structure_handle(const sc_data_structure_collection_t* dsc, size_t index);
+
+    /** \returns DataStructure name */
+    SC_API const char* sc_data_structure_name(const sc_data_structure_t* handle);
+
+    /** \returns DataStructure description */
+    SC_API const char* sc_data_structure_description(const sc_data_structure_t* handle);
+
+    /** \returns DataStructure Members Collection handle */
+    SC_API const sc_parameter_collection_t* sc_members_collection_handle(const sc_data_structure_t* handle);
+
+    /** \returns Members Collection size */
+    SC_API size_t sc_members_collection_size(const sc_parameter_collection_t* handle);
+
+    /** \returns Payload handle from DataStructure */
+    SC_API const sc_payload_t* sc_sample_handle(const sc_data_structure_t* handle);
 
     /*----------------------------------------------------------------------*/
 
