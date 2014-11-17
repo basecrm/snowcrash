@@ -15,6 +15,8 @@
 #include "ParametersParser.h"
 #include "ResourceParser.h"
 #include "ResourceGroupParser.h"
+#include "DataStructureParser.h"
+#include "DataStructuresParser.h"
 
 using namespace snowcrash;
 
@@ -51,6 +53,12 @@ SectionType snowcrash::SectionKeywordSignature(const mdp::MarkdownNodeIterator& 
         return type;
 
     if ((type = SectionProcessor<ResourceGroup>::sectionType(node)) != UndefinedSectionType)
+        return type;
+
+    if ((type = SectionProcessor<DataStructure>::sectionType(node)) != UndefinedSectionType)
+        return type;
+
+    if ((type = SectionProcessor<DataStructures>::sectionType(node)) != UndefinedSectionType)
         return type;
 
     return type;

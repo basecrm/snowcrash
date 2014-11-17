@@ -92,3 +92,70 @@ TEST_CASE("Parse canonical data structures", "[data_structures]")
     REQUIRE(ds.sourceMap.dataStructures.collection[0].sample.body.sourceMap[0].location == 164);
     REQUIRE(ds.sourceMap.dataStructures.collection[0].sample.body.sourceMap[0].length == 12);
 }
+
+
+TEST_CASE("Parse canonical data structures section with multiple subsections", "[data_structures]")
+{
+    const mdp::ByteBuffer source = \
+    "# Data Structures\n\n"\
+    "Data Structures Description\n\n"\
+    "## Structure Name1\n\n"\
+    "Structure Description\n\n"\
+    "+ Members\n"\
+    "    + id1 (required, number, `42`) ... Resource Id\n"\
+    "\n"
+    "+ Sample\n\n"\
+    "   Hello World From Sample 1\n"\
+    "\n"\
+    "## Structure Name2\n\n"\
+    "Structure Description\n\n"\
+    "+ Members\n"\
+    "    + id2 (required, number, `42`) ... Resource Id\n"\
+    "\n"
+    "+ Sample\n\n"\
+    "   Hello World From Sample 2\n";
+
+    ParseResult<DataStructures> ds;
+    SectionParserHelper<DataStructures, DataStructuresParser>::parse(source, DataStructuresSectionType, ds, ExportSourcemapOption);
+    
+    REQUIRE(ds.report.error.code == Error::OK);
+    
+    REQUIRE(ds.node.description == "Data Structures Description\n\n");
+    REQUIRE(ds.node.dataStructures.size() == 2);
+
+    REQUIRE(ds.node.dataStructures[0].name == "Name1");
+    REQUIRE(ds.node.dataStructures[0].description == "Structure Description\n\n");
+
+    REQUIRE(ds.node.dataStructures[0].members.size() == 1);
+    REQUIRE(ds.node.dataStructures[0].members[0].name == "id1");
+    REQUIRE(ds.node.dataStructures[0].members[0].description == "Resource Id");
+    REQUIRE(ds.node.dataStructures[0].members[0].type == "number");
+    REQUIRE(ds.node.dataStructures[0].members[0].defaultValue.empty());
+    REQUIRE(ds.node.dataStructures[0].members[0].exampleValue == "42");
+    REQUIRE(ds.node.dataStructures[0].members[0].values.empty());
+
+    REQUIRE(ds.node.dataStructures[0].sample.name.empty());
+    REQUIRE(ds.node.dataStructures[0].sample.description.empty());
+    REQUIRE(ds.node.dataStructures[0].sample.parameters.empty());
+    REQUIRE(ds.node.dataStructures[0].sample.headers.empty());
+    REQUIRE(ds.node.dataStructures[0].sample.body == "Hello World From Sample 1\n");
+    REQUIRE(ds.node.dataStructures[0].sample.schema.empty());
+
+    REQUIRE(ds.node.dataStructures[1].name == "Name2");
+    REQUIRE(ds.node.dataStructures[1].description == "Structure Description\n\n");
+
+    REQUIRE(ds.node.dataStructures[1].members.size() == 1);
+    REQUIRE(ds.node.dataStructures[1].members[0].name == "id2");
+    REQUIRE(ds.node.dataStructures[1].members[0].description == "Resource Id");
+    REQUIRE(ds.node.dataStructures[1].members[0].type == "number");
+    REQUIRE(ds.node.dataStructures[1].members[0].defaultValue.empty());
+    REQUIRE(ds.node.dataStructures[1].members[0].exampleValue == "42");
+    REQUIRE(ds.node.dataStructures[1].members[0].values.empty());
+
+    REQUIRE(ds.node.dataStructures[1].sample.name.empty());
+    REQUIRE(ds.node.dataStructures[1].sample.description.empty());
+    REQUIRE(ds.node.dataStructures[1].sample.parameters.empty());
+    REQUIRE(ds.node.dataStructures[1].sample.headers.empty());
+    REQUIRE(ds.node.dataStructures[1].sample.body == "Hello World From Sample 2\n");
+    REQUIRE(ds.node.dataStructures[1].sample.schema.empty());
+}

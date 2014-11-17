@@ -10,8 +10,8 @@
 #define SNOWCRASH_BLUEPRINTPARSER_H
 
 #include "ResourceParser.h"
-#include "ResourceGroupParser.h"
-#include "DataStructuresParser.h"
+#include "ResourceGroupParser.h"
+#include "DataStructuresParser.h"
 #include "DataStructureParser.h"
 #include "SectionParser.h"
 #include "RegexMatch.h"
@@ -70,12 +70,13 @@ namespace snowcrash {
 
                 SectionType nestedType = nestedSectionType(cur);
 
-                // Resources Groups only, parse as exclusive nested sections
+                // Resources Groups and Data Structures only, parse as exclusive nested sections
                 if (nestedType != UndefinedSectionType) {
                     layout = ExclusiveNestedSectionLayout;
                     return cur;
                 }
 
+                // Name of the API
                 out.node.name = cur->text;
                 TrimString(out.node.name);
 
@@ -131,6 +132,17 @@ namespace snowcrash {
                 }
 
                 return cur;
+            } else if (pd.sectionContext() == DataStructuresSectionType) {
+                IntermediateParseResult<DataStructures> ds(out.report);
+                MarkdownNodeIterator cur = DataStructuresParser::parse(node, siblings, pd, ds);
+
+                out.node.dataStructures = ds.node;
+
+                if (pd.exportSourceMap()) {
+                    out.sourceMap.dataStructures = ds.sourceMap;
+                }
+
+                return cur;
             }
 
             return node;
@@ -159,6 +171,13 @@ namespace snowcrash {
                 return nestedType;
             }
 
+            // Check if DataStructures section
+            nestedType = SectionProcessor<DataStructures>::sectionType(node);
+
+            if (nestedType != UndefinedSectionType) {
+                return nestedType;
+            }
+
             return UndefinedSectionType;
         }
 
@@ -167,10 +186,19 @@ namespace snowcrash {
 
             // Resource Group & descendants
             nested.push_back(ResourceGroupSectionType);
-            SectionTypes types = SectionProcessor<ResourceGroup>::nestedSectionTypes();
-            nested.insert(nested.end(), types.begin(), types.end());
+            insertNestedSectionTypes<ResourceGroup>(nested);
 
+            // Data Structures & descendants
+            nested.push_back(DataStructuresSectionType);
+            insertNestedSectionTypes<DataStructures>(nested);
+            
             return nested;
+        }
+
+        template<typename T>
+        static void insertNestedSectionTypes(SectionTypes& nested) {
+            SectionTypes types = SectionProcessor<T>::nestedSectionTypes();
+            nested.insert(nested.end(), types.begin(), types.end());
         }
 
         static void finalize(const MarkdownNodeIterator& node,

@@ -36,21 +36,6 @@ TEST_CASE("Recognize Data Structure section block with keyword", "[datastructure
     REQUIRE(sectionType == DataStructureSectionType);
 }
 
-TEST_CASE("Recognize Data Structure section block", "[datastructure]")
-{
-    mdp::ByteBuffer source = \
-    "# Name\n\n"\
-    "Description\n";
-    
-    mdp::MarkdownParser markdownParser;
-    mdp::MarkdownNode markdownAST;
-    markdownParser.parse(source, markdownAST);
-    
-    REQUIRE(!markdownAST.children().empty());
-    SectionType sectionType = SectionProcessor<DataStructure>::sectionType(markdownAST.children().begin());
-    REQUIRE(sectionType == DataStructureSectionType);
-}
-
 TEST_CASE("Parse data structure with members", "[datastructure]")
 {
     mdp::ByteBuffer source = \

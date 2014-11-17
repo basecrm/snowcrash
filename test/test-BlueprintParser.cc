@@ -131,6 +131,111 @@ TEST_CASE("Parse blueprint with multiple metadata sections", "[blueprint]")
     REQUIRE(blueprint.sourceMap.resourceGroups.collection.size() == 2);
 }
 
+TEST_CASE("Parse blueprint with data structures section", "[blueprint]")
+{
+    mdp::ByteBuffer source = "FORMAT: 1A\n\n"\
+    "meta: verse\n\n"\
+    "# Snowcrash API\n\n"\
+    "## Character\n"\
+    "Uncle Enzo\n\n"\
+    "# Data Structures\n\n"\
+    "Data Structures Description\n\n"\
+    "## Structure Name\n\n"\
+    "Structure Description\n\n"\
+    "+ Members\n"\
+    "    + id (required, number, `42`) ... Resource Id\n"\
+    "\n"
+    "+ Sample\n\n"\
+    "   Hello World\n";
+
+    ParseResult<Blueprint> blueprint;
+    SectionParserHelper<Blueprint, BlueprintParser>::parse(source, BlueprintSectionType, blueprint, ExportSourcemapOption);
+
+    REQUIRE(blueprint.report.error.code == Error::OK);
+    //REQUIRE(blueprint.report.warnings.empty());
+
+    REQUIRE(blueprint.node.metadata.size() == 2);
+    REQUIRE(blueprint.node.metadata[0].first == "FORMAT");
+    REQUIRE(blueprint.node.metadata[0].second == "1A");
+    REQUIRE(blueprint.node.metadata[1].first == "meta");
+    REQUIRE(blueprint.node.metadata[1].second == "verse");
+
+    REQUIRE(blueprint.node.name == "Snowcrash API");
+    REQUIRE(blueprint.node.description == "## Character\n\nUncle Enzo\n\n");
+
+    REQUIRE(blueprint.node.resourceGroups.empty());
+    REQUIRE(blueprint.node.dataStructures.description == "Data Structures Description\n\n");
+    REQUIRE(blueprint.node.dataStructures.dataStructures.size() == 1);
+    
+
+    REQUIRE(blueprint.sourceMap.name.sourceMap.size() == 1);
+    REQUIRE(blueprint.sourceMap.name.sourceMap[0].location == 25);
+    REQUIRE(blueprint.sourceMap.name.sourceMap[0].length == 17);
+    REQUIRE(blueprint.sourceMap.description.sourceMap.size() == 1);
+    REQUIRE(blueprint.sourceMap.description.sourceMap[0].location == 42);
+    REQUIRE(blueprint.sourceMap.description.sourceMap[0].length == 25);
+    REQUIRE(blueprint.sourceMap.metadata.collection.size() == 2);
+    REQUIRE(blueprint.sourceMap.metadata.collection[0].sourceMap.size() == 1);
+    REQUIRE(blueprint.sourceMap.metadata.collection[0].sourceMap[0].location == 0);
+    REQUIRE(blueprint.sourceMap.metadata.collection[0].sourceMap[0].length == 12);
+    REQUIRE(blueprint.sourceMap.metadata.collection[1].sourceMap.size() == 1);
+    REQUIRE(blueprint.sourceMap.metadata.collection[1].sourceMap[0].location == 12);
+    REQUIRE(blueprint.sourceMap.metadata.collection[1].sourceMap[0].length == 13);
+    REQUIRE(blueprint.sourceMap.resourceGroups.collection.empty());
+}
+
+TEST_CASE("Parse blueprint with data structures and resource group sections", "[blueprint]")
+{
+    mdp::ByteBuffer source = "FORMAT: 1A\n\n"\
+    "meta: verse\n\n"\
+    "# Snowcrash API\n\n"\
+    "## Character\n"\
+    "Uncle Enzo\n\n"\
+    "# Data Structures\n\n"\
+    "Data Structures Description\n\n"\
+    "## Structure Name\n\n"\
+    "Structure Description\n\n"\
+    "+ Members\n"\
+    "    + id (required, number, `42`) ... Resource Id\n"\
+    "\n"
+    "+ Sample\n\n"\
+    "   Hello World\n"\
+    "\n"\
+    "# Group First\n"\
+    "p1\n"\
+    "## My Resource [/resource]\n"\
+    "# Group Second\n"\
+    "p2\n";
+    
+    ParseResult<Blueprint> blueprint;
+    SectionParserHelper<Blueprint, BlueprintParser>::parse(source, BlueprintSectionType, blueprint, ExportSourcemapOption);
+    
+    REQUIRE(blueprint.report.error.code == Error::OK);
+    //REQUIRE(blueprint.report.warnings.empty());
+    
+    REQUIRE(blueprint.node.metadata.size() == 2);
+    REQUIRE(blueprint.node.metadata[0].first == "FORMAT");
+    REQUIRE(blueprint.node.metadata[0].second == "1A");
+    REQUIRE(blueprint.node.metadata[1].first == "meta");
+    REQUIRE(blueprint.node.metadata[1].second == "verse");
+    
+    REQUIRE(blueprint.node.name == "Snowcrash API");
+    REQUIRE(blueprint.node.description == "## Character\n\nUncle Enzo\n\n");
+    
+    REQUIRE(blueprint.node.dataStructures.description == "Data Structures Description\n\n");
+    REQUIRE(blueprint.node.dataStructures.dataStructures.size() == 1);
+
+    REQUIRE(blueprint.node.resourceGroups.size() == 2);
+
+    REQUIRE(blueprint.node.resourceGroups[0].name == "First");
+    REQUIRE(blueprint.node.resourceGroups[0].description == "p1\n");
+    REQUIRE(blueprint.node.resourceGroups[0].resources.size() == 1);
+
+    REQUIRE(blueprint.node.resourceGroups[1].name == "Second");
+    REQUIRE(blueprint.node.resourceGroups[1].description == "p2\n");
+    REQUIRE(blueprint.node.resourceGroups[1].resources.empty());
+}
+
 TEST_CASE("Parse API with Name and abbreviated resource", "[blueprint]")
 {
     mdp::ByteBuffer source = \

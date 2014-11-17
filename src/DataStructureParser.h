@@ -17,9 +17,6 @@
 
 namespace snowcrash {
 
-    /** Keyword Less Data Structure matching regex */
-    const char* const DataStructureHeaderRegex = "^[[:blank:]]*" SYMBOL_IDENTIFIER "[[:blank:]]*$";
-
     /** Keyword Data Structure matching regex */
     const char* const KeywordDataStructureHeaderRegex = "^[[:blank:]]*[Ss]tructure[[:blank:]]+" SYMBOL_IDENTIFIER "[[:blank:]]*$";
 
@@ -45,8 +42,6 @@ namespace snowcrash {
             TrimString(subject);
             
             if (RegexCapture(subject, KeywordDataStructureHeaderRegex, captureGroups, 3)) {
-                out.node.name = captureGroups[1];
-            } else if (RegexCapture(subject, DataStructureHeaderRegex, captureGroups, 3)) {
                 out.node.name = captureGroups[1];
             }
 
@@ -157,8 +152,7 @@ namespace snowcrash {
                 mdp::ByteBuffer subject = node->text;
                 TrimString(subject);
 
-                if (RegexMatch(subject, DataStructureHeaderRegex) ||
-                    RegexMatch(subject, KeywordDataStructureHeaderRegex)) {
+                if (RegexMatch(subject, KeywordDataStructureHeaderRegex)) {
 
                     return DataStructureSectionType;
                 }
