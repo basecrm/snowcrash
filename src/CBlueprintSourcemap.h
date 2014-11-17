@@ -33,6 +33,18 @@ extern "C" {
     struct sc_sm_metadata_s;
     typedef struct sc_sm_metadata_s sc_sm_metadata_t;
 
+    /** Class DataStructures source map wrapper */
+    struct sc_sm_data_structures_s;
+    typedef sc_sm_data_structures_s sc_sm_data_structures_t;
+
+    /** Array of DataStructure Collection source map wrapper */
+    struct sc_sm_data_structure_collection_s;
+    typedef sc_sm_data_structure_collection_s sc_sm_data_structure_collection_t;
+
+    /** Class DataStructure source map wrapper */
+    struct sc_sm_data_structure_s;
+    typedef sc_sm_data_structure_s sc_sm_data_structure_t;
+
     /** Array Resource Group Collection source map wrapper */
     struct sc_sm_resource_group_collection_s;
     typedef struct sc_sm_resource_group_collection_s sc_sm_resource_group_collection_t;
@@ -145,6 +157,42 @@ extern "C" {
 
     /** \returns Metadata source map */
     SC_API const sc_source_map_t* sc_sm_metadata(const sc_sm_metadata_t* metadata);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructures source map handle */
+    SC_API const sc_sm_data_structures_t* sc_sm_data_structures_handle(const sc_sm_blueprint_t* blueprint);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructures description source map */
+    SC_API const sc_source_map_t* sc_sm_data_structures_description(const sc_sm_data_structures_t* ds);
+
+    /** \returns DataStructure source map array handle */
+    SC_API const sc_sm_data_structure_collection_t* sc_sm_data_structure_collection_handle(const sc_sm_data_structures_t* ds);
+
+    /** \returns size of DataStructure source map array */
+    SC_API size_t sc_sm_data_structure_collection_size(const sc_sm_data_structure_collection_t* dsc);
+
+    /*----------------------------------------------------------------------*/
+
+    /** \returns DataStructure source map handle */
+    SC_API const sc_sm_data_structure_t* sc_sm_data_structure_handle(const sc_sm_data_structure_collection_t* dsc, size_t index);
+
+    /** \returns DataStructure name source map */
+    SC_API const sc_source_map_t* sc_sm_data_structure_name(const sc_sm_data_structure_t* handle);
+
+    /** \returns DataStructure description source map */
+    SC_API const sc_source_map_t* sc_sm_data_structure_description(const sc_sm_data_structure_t* handle);
+
+    /** \returns DataStructure Members source map Collection handle */
+    SC_API const sc_sm_parameter_collection_t* sc_sm_members_collection_handle(const sc_sm_data_structure_t* handle);
+
+    /** \returns Members source map Collection size */
+    SC_API size_t sc_sm_members_collection_size(const sc_sm_parameter_collection_t* handle);
+
+    /** \returns Payload source map handle from DataStructure */
+    SC_API const sc_sm_payload_t* sc_sm_sample_handle(const sc_sm_data_structure_t* handle);
 
     /*----------------------------------------------------------------------*/
 

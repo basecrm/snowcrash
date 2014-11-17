@@ -109,6 +109,112 @@ SC_API const sc_source_map_t* sc_sm_metadata(const sc_sm_metadata_t* metadata)
 
 /*----------------------------------------------------------------------*/
 
+ /** \returns DataStructures source map handle */
+SC_API const sc_sm_data_structures_t* sc_sm_data_structures_handle(const sc_sm_blueprint_t* blueprint)
+{
+    const snowcrash::SourceMap<snowcrash::Blueprint>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::Blueprint>, blueprint);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_sm_data_structures_t, &p->dataStructures);
+}
+
+/*----------------------------------------------------------------------*/
+
+/** \returns DataStructures description source map */
+SC_API const sc_source_map_t* sc_sm_data_structures_description(const sc_sm_data_structures_t* ds)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructures>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructures>, ds);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_source_map_t, &p->description.sourceMap);
+}
+
+/** \returns DataStructure source map array handle */
+SC_API const sc_sm_data_structure_collection_t* sc_sm_data_structure_collection_handle(const sc_sm_data_structures_t* ds)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructures>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructures>, ds);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_sm_data_structure_collection_t, &p->dataStructures);
+}
+
+/** \returns size of DataStructure source map array */
+SC_API size_t sc_sm_data_structure_collection_size(const sc_sm_data_structure_collection_t* dsc)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructureCollection>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructureCollection>, dsc);
+    if (!p)
+        return 0;
+
+    return p->collection.size();
+}
+
+/*----------------------------------------------------------------------*/
+
+/** \returns DataStructure source map handle */
+SC_API const sc_sm_data_structure_t* sc_sm_data_structure_handle(const sc_sm_data_structure_collection_t* dsc, size_t index)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructureCollection>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructureCollection>, dsc);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_sm_data_structure_t, &p->collection.at(index));
+}
+
+/** \returns DataStructure name source map */
+SC_API const sc_source_map_t* sc_sm_data_structure_name(const sc_sm_data_structure_t* handle)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructure>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructure>, handle);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_source_map_t, &p->name.sourceMap);
+}
+
+/** \returns DataStructure description source map */
+SC_API const sc_source_map_t* sc_sm_data_structure_description(const sc_sm_data_structure_t* handle)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructure>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructure>, handle);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_source_map_t, &p->description.sourceMap);
+}
+
+/** \returns DataStructure Members source map Collection handle */
+SC_API const sc_sm_parameter_collection_t* sc_sm_members_collection_handle(const sc_sm_data_structure_t* handle)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructure>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructure>, handle);
+    if(!p)
+        return NULL;
+
+    return AS_CTYPE(sc_sm_parameter_collection_t, &p->members);
+}
+
+/** \returns Members source map Collection size */
+SC_API size_t sc_sm_members_collection_size(const sc_sm_parameter_collection_t* handle)
+{
+    const snowcrash::SourceMap<snowcrash::Parameters>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::Parameters>, handle);
+    if (!p)
+        return 0;
+
+    return p->collection.size();
+}
+
+/** \returns Payload source map handle from DataStructure */
+SC_API const sc_sm_payload_t* sc_sm_sample_handle(const sc_sm_data_structure_t* handle)
+{
+    const snowcrash::SourceMap<snowcrash::DataStructure>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::DataStructure>, handle);
+    if (!p)
+        return NULL;
+
+    return AS_CTYPE(sc_sm_payload_t, &p->sample);
+}
+
+/*----------------------------------------------------------------------*/
+
 SC_API const sc_sm_resource_group_collection_t* sc_sm_resource_group_collection_handle(const sc_sm_blueprint_t* blueprint)
 {
     const snowcrash::SourceMap<snowcrash::Blueprint>* p = AS_CTYPE(snowcrash::SourceMap<snowcrash::Blueprint>, blueprint);
